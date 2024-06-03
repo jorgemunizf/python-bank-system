@@ -327,6 +327,7 @@ def exibir_extrato(clientes):
     print(f"\nSaldo:\n\tR$ {conta.saldo:.2f}")
     print("==========================================")
 
+
 @log_transacao
 def criar_cliente(clientes):
     cpf = input("Informe o CPF (somente número): ")
@@ -349,6 +350,7 @@ def criar_cliente(clientes):
     clientes.append(cliente)
 
     print("\n=== Cliente criado com sucesso! ===")
+
 
 @log_transacao
 def criar_conta(numero_conta, clientes, contas):
