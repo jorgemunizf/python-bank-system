@@ -14,3 +14,17 @@ Retornou {resultado}
 Retornou {resultado}
 [2024-07-03 15:58:53] Função 'criar_conta' executa com argumentos (2, [<PessoaFisica: ('123789456')>, <PessoaFisica: ('456')>], [<ContaCorrente: ('0001', '1', 'Francisco Jose da Silva')>, <ContaCorrente: ('0001', '2', 'Jessica Albuquerque')>]) e {}. Retornou None
 Retornou {resultado}
+[2024-07-03 16:21:06] Função 'criar_cliente' executa com argumentos ([<PessoaFisica: ('Benjamin' '123')>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 16:21:11] Função 'criar_conta' executa com argumentos (1, [<PessoaFisica: ('Benjamin' '123')>], [<ContaCorrente: ('0001', '1', 'Benjamin')>]) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 16:21:20] Função 'depositar' executa com argumentos ([<PessoaFisica: ('Benjamin' '123')>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 16:21:32] Função 'depositar' executa com argumentos ([<PessoaFisica: ('Benjamin' '123')>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 16:21:38] Função 'sacar' executa com argumentos ([<PessoaFisica: ('Benjamin' '123')>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 16:21:43] Função 'sacar' executa com argumentos ([<PessoaFisica: ('Benjamin' '123')>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 16:21:51] Função 'exibir_extrato' executa com argumentos ([<PessoaFisica: ('Benjamin' '123')>],) e {}. Retornou None
+Retornou {resultado}

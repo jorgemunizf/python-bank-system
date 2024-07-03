@@ -29,7 +29,6 @@ class ContasInterador:
         finally:
             self._index += 1
 
-
 class Cliente:
     def __init__(self, endereco):
         self.endereco = endereco
@@ -49,7 +48,6 @@ class Cliente:
     def adicionar_conta(self, conta):
         self.contas.append(conta)
 
-
 class PessoaFisica(Cliente):
     def __init__(self, nome, data_nascimento, cpf, endereco):
         super().__init__(endereco)
@@ -60,8 +58,6 @@ class PessoaFisica(Cliente):
     def __repr__(self):
         return f"<{self.__class__.__name__}: ('{self.nome}' '{self.cpf}')>"
     
-
-
 class Conta:
     def __init__(self, numero, cliente):
         self._saldo = 0
@@ -121,7 +117,6 @@ class Conta:
 
         return True
 
-
 class ContaCorrente(Conta):
     def __init__(self, numero, cliente, limite=500, limite_saques=3):
         super().__init__(numero, cliente)
@@ -161,7 +156,6 @@ class ContaCorrente(Conta):
             Titular:\t{self.cliente.nome}
         """
 
-
 class Historico:
     def __init__(self):
         self._transacoes = []
@@ -198,7 +192,6 @@ class Historico:
                 transacoes.append(transacao)
         return transacoes
 
-
 class Transacao(ABC):
     @property
     def valor(self):
@@ -207,7 +200,6 @@ class Transacao(ABC):
     @abstractmethod
     def registrar(self, conta):
         pass
-
 
 class Saque(Transacao):
     def __init__(self, valor):
@@ -223,7 +215,6 @@ class Saque(Transacao):
         if sucesso_transacao:
             conta.historico.adicionar_transacao(self)
 
-
 class Deposito(Transacao):
     def __init__(self, valor):
         self._valor = valor
@@ -238,7 +229,6 @@ class Deposito(Transacao):
         if sucesso_transacao:
             conta.historico.adicionar_transacao(self)
 
-
 def log_transacao(func):
     def envelope(*args, **kwargs):
         resultado = func(*args, **kwargs)
@@ -251,7 +241,6 @@ def log_transacao(func):
         return resultado
 
     return envelope
-
 
 def menu():
     menu = """\n
@@ -266,11 +255,9 @@ def menu():
     => """
     return input(textwrap.dedent(menu))
 
-
 def filtrar_cliente(cpf, clientes):
     clientes_filtrados = [cliente for cliente in clientes if cliente.cpf == cpf]
     return clientes_filtrados[0] if clientes_filtrados else None
-
 
 def recuperar_conta_cliente(cliente):
     if not cliente.contas:
@@ -279,7 +266,6 @@ def recuperar_conta_cliente(cliente):
 
     # FIXME: não permite cliente escolher a conta
     return cliente.contas[0]
-
 
 @log_transacao
 def depositar(clientes):
@@ -299,7 +285,6 @@ def depositar(clientes):
 
     cliente.realizar_transacao(conta, transacao)
 
-
 @log_transacao
 def sacar(clientes):
     cpf = input("Informe o CPF do cliente: ")
@@ -318,7 +303,6 @@ def sacar(clientes):
 
     cliente.realizar_transacao(conta, transacao)
 
-
 @log_transacao
 def exibir_extrato(clientes):
     cpf = input("Informe o CPF do cliente: ")
@@ -335,7 +319,9 @@ def exibir_extrato(clientes):
     print("\n================ EXTRATO ================")
     extrato = ""
     tem_transacao = False
-    for transacao in conta.historico.gerar_relatorio(tipo_transacao="saque"):
+
+
+    for transacao in conta.historico.gerar_relatorio():
         tem_transacao = True
         extrato += f"\n{transacao['tipo']}:\n\tR$ {transacao['valor']:.2f}"
 
@@ -345,7 +331,6 @@ def exibir_extrato(clientes):
     print(extrato)
     print(f"\nSaldo:\n\tR$ {conta.saldo:.2f}")
     print("==========================================")
-
 
 @log_transacao
 def criar_cliente(clientes):
@@ -370,7 +355,6 @@ def criar_cliente(clientes):
 
     print("\n=== Cliente criado com sucesso! ===")
 
-
 @log_transacao
 def criar_conta(numero_conta, clientes, contas):
     cpf = input("Informe o CPF do cliente: ")
@@ -388,12 +372,10 @@ def criar_conta(numero_conta, clientes, contas):
 
     print("\n=== Conta criada com sucesso! ===")
 
-
 def listar_contas(contas):
     for conta in contas:
         print("=" * 100)
         print(textwrap.dedent(str(conta)))
-
 
 def main():
     clientes = []
