@@ -1,0 +1,16 @@
+[2024-07-03 15:46:19] Função 'criar_cliente' executa com argumentos ([<__main__.PessoaFisica object at 0x00000169445AC190>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 15:46:23] Função 'criar_conta' executa com argumentos (1, [<__main__.PessoaFisica object at 0x00000169445AC190>], [<__main__.ContaCorrente object at 0x00000169445AC390>]) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 15:47:04] Função 'criar_cliente' executa com argumentos ([<__main__.PessoaFisica object at 0x00000169445AC190>, <__main__.PessoaFisica object at 0x00000169445AC310>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 15:47:08] Função 'criar_conta' executa com argumentos (2, [<__main__.PessoaFisica object at 0x00000169445AC190>, <__main__.PessoaFisica object at 0x00000169445AC310>], [<__main__.ContaCorrente object at 0x00000169445AC390>, <__main__.ContaCorrente object at 0x00000169445AC4D0>]) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 15:56:49] Função 'criar_cliente' executa com argumentos ([<PessoaFisica: ('123789456')>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 15:56:56] Função 'criar_conta' executa com argumentos (1, [<PessoaFisica: ('123789456')>], [<ContaCorrente: ('0001', '1', 'Francisco Jose da Silva')>]) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 15:58:42] Função 'criar_cliente' executa com argumentos ([<PessoaFisica: ('123789456')>, <PessoaFisica: ('456')>],) e {}. Retornou None
+Retornou {resultado}
+[2024-07-03 15:58:53] Função 'criar_conta' executa com argumentos (2, [<PessoaFisica: ('123789456')>, <PessoaFisica: ('456')>], [<ContaCorrente: ('0001', '1', 'Francisco Jose da Silva')>, <ContaCorrente: ('0001', '2', 'Jessica Albuquerque')>]) e {}. Retornou None
+Retornou {resultado}

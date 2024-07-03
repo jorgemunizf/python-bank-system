@@ -1,6 +1,9 @@
 import textwrap
 from abc import ABC, abstractmethod, abstractproperty
 from datetime import datetime
+from pathlib import Path
+
+ROOT_PATH = Path(__file__).parent
 
 
 class ContasInterador:
@@ -36,7 +39,9 @@ class Cliente:
     def realizar_transacao(self, conta, transacao):
         if len(conta.historico.transacoes_do_dia()) >= 10:
             print(
-                "\n@@@ Você excedeu o número maximo de transações permitidas para hoje! @@@")
+                "\n@@@ Você excedeu o número maximo de transações permitidas "
+                "para hoje! @@@"
+            )
             return
 
         transacao.registrar(conta)
@@ -51,6 +56,10 @@ class PessoaFisica(Cliente):
         self.nome = nome
         self.data_nascimento = data_nascimento
         self.cpf = cpf
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}: ('{self.nome}' '{self.cpf}')>"
+    
 
 
 class Conta:
@@ -132,15 +141,18 @@ class ContaCorrente(Conta):
         excedeu_saques = numero_saques >= self._limite_saques
 
         if excedeu_limite:
-            print("\n@@@ Operação falhou! O valor do saque excede o limite. @@@")
+            print("\n@@@ Operação falhou! O valor do saque excede o limite. " "@@@")
 
         elif excedeu_saques:
-            print("\n@@@ Operação falhou! Número máximo de saques excedido. @@@")
+            print("\n@@@ Operação falhou! Número máximo de saques excedido. " "@@@")
 
         else:
             return super().sacar(valor)
 
         return False
+    
+    def __repr__(self):
+        return f"<{self.__class__.__name__}: ('{self.agencia}', '{self.numero}', '{self.cliente.nome}')>"
 
     def __str__(self):
         return f"""\
@@ -169,7 +181,10 @@ class Historico:
 
     def gerar_relatorio(self, tipo_transacao=None):
         for transacao in self._transacoes:
-            if tipo_transacao is None or transacao['tipo'].lower() == tipo_transacao.lower():
+            if (
+                tipo_transacao is None
+                or transacao["tipo"].lower() == tipo_transacao.lower()
+            ):
                 yield transacao
 
     def transacoes_do_dia(self):
@@ -177,7 +192,8 @@ class Historico:
         transacoes = []
         for transacao in self._transacoes:
             data_transacao = datetime.strptime(
-                transacao["data"], "%d-%m-%Y %H:%M:%S").date()
+                transacao["data"], "%d-%m-%Y %H:%M:%S"
+            ).date()
             if data_atual == data_transacao:
                 transacoes.append(transacao)
         return transacoes
@@ -185,7 +201,6 @@ class Historico:
 
 class Transacao(ABC):
     @property
-    @abstractproperty
     def valor(self):
         pass
 
@@ -227,7 +242,12 @@ class Deposito(Transacao):
 def log_transacao(func):
     def envelope(*args, **kwargs):
         resultado = func(*args, **kwargs)
-        print(f"{datetime.now()}: {func.__name__.upper()}")
+        data_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(ROOT_PATH / "log.txt", "a") as arquivo:
+            arquivo.write(
+                f"[{data_hora}] Função '{func.__name__}' executa com argumentos {args} e {kwargs}. Retornou {resultado}\n"
+                "Retornou {resultado}\n"
+            )
         return resultado
 
     return envelope
@@ -248,8 +268,7 @@ def menu():
 
 
 def filtrar_cliente(cpf, clientes):
-    clientes_filtrados = [
-        cliente for cliente in clientes if cliente.cpf == cpf]
+    clientes_filtrados = [cliente for cliente in clientes if cliente.cpf == cpf]
     return clientes_filtrados[0] if clientes_filtrados else None
 
 
@@ -358,7 +377,9 @@ def criar_conta(numero_conta, clientes, contas):
     cliente = filtrar_cliente(cpf, clientes)
 
     if not cliente:
-        print("\n@@@ Cliente não encontrado, fluxo de criação de conta encerrado! @@@")
+        print(
+            "\n@@@ Cliente não encontrado, fluxo de criação de conta " "encerrado! @@@"
+        )
         return
 
     conta = ContaCorrente.nova_conta(cliente=cliente, numero=numero_conta)
@@ -405,7 +426,8 @@ def main():
 
         else:
             print(
-                "\n@@@ Operação inválida, por favor selecione novamente a operação desejada. @@@"
+                "\n@@@ Operação inválida, por favor selecione novamente a "
+                "operação desejada. @@@"
             )
 
 
